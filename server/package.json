@@ -11,5 +11,10 @@
     "url": "fist day class"
   },
   "author": "Pravin",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "upper-case": 
+    "^2.0.1"
+  }
 }
