@@ -1,6 +1,8 @@
 
-body{background-color:#e3e8ea}
+body{background-color:rgba(0, 255, 242, 0.863)}
 .human-features-container{ margin-top: 6%;}
 .human-features-main{margin: 3.5%}
+
+.list-group-item{background-color: #0077ff;}
 
 .send-removed{display: none;}
