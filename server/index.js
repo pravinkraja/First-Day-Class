@@ -28,6 +28,10 @@ app.get('/features', function (req, res) {
   ];
   res.send(features);
 });
+
+app.post("/features", function(req, res){
+  //save data to the server//
+})
  
 app.listen(3000, function(){
     console.log("Application is running on port 3000")
