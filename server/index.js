@@ -1,37 +1,34 @@
 const express = require("express");// import
 const cors = require("cors");// import cors
+const monk = require("monk");
 const app = express() // 
+
+app.use(express.json());
 
 app.use(cors()); //enable cors
 
-app.get('/features', function (req, res) {
-   var features = [
-    {
-      name : "features 1",
-      author: "pravin",
-      time : Date.now(),
-      
-    },
-  
-   {
-      name : "features 2",
-      author: "yathu",
-      time : Date.now(),
-      
-    },
+const db = monk("localhost/humandb");
+const dbfeatures = db.get("features"); /* from db collections (table) */
 
-     {
-      name : "features 3",
-      author: "pavith",
-      time : Date.now(),
-    }
-  ];
-  res.send(features);
+app.get('/features', async function (req, res) {
+  var allfeaturesIndb = await dbfeatures.find();
+  allfeaturesIndb.every(f=> (f.time = timeAgo(f.time)));
+  res.send(allfeaturesIndb);
+
 });
 
 app.post("/features", function(req, res){
-  //save data to the server//
-})
+        console.log(log.body.name);
+        console.log(log.body.feature);
+        var newfeaturesToAdd = {
+          body:req.body.features,
+          author:req.body.name,
+          time:DataCue.now()
+        };
+
+        await dbfeatures.insert(newfeaturesToAdd);
+        res.send("Successful");  
+});
  
 app.listen(3000, function(){
     console.log("Application is running on port 3000")

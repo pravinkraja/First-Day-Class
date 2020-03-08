@@ -2,11 +2,17 @@
 var featuresubmitbtn = document.getElementById("featuresubmitbtn");
 var featureFrm = document.getElementById("featurefrm")
 var featureLoadingDiv = document.getElementById("featureLoadingDiv")
-featuresubmitbtn.addEventListener("click", function(){
+featuresubmitbtn.addEventListener("click", async function(){
         //make the loader visible
         featureLoadingDiv.classList.remove("send-removed");
         //hide the form from the user
         featureFrm.classList.add("send-removed");
+        await onfeaturesubmit();
+
+        featureFrm.reset();
+        featureLoadingDiv.classList.add("send.removed");
+        featureFrm.classList.remove("send.removed")
+        await onfeatureload()
 });
 
 async function onfeatureload(){
@@ -26,7 +32,16 @@ async function onfeatureload(){
 
 onfeatureload();
 
-function onfeaturesubmit() {
-        // send a req to server
-        console.log("sending POST request to server ...");
+async function onfeaturesubmit() {
+     await fetch("http://localhost:3000/features",{
+                 method: "post",
+                body: JSON.stringify({
+                        name:document.getElementById("username").nodeValue,
+                        feature: document.getElementById("userfeature").value
+        
+                }),
+                headers: {
+                        "content-type":"application/json"
+                }
+        });
 }
